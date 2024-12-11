@@ -9,7 +9,7 @@ data_img="${dst_dir}/data.ext4"
 
 # Make image
 rm -f "${data_img}"
-truncate --size="1280M" "${data_img}"
+truncate --size="6000M" "${data_img}"
 mkfs.ext4 -L "hassos-data" -E lazy_itable_init=0,lazy_journal_init=0 "${data_img}"
 
 # Mount / init file structs
@@ -31,3 +31,7 @@ docker stop "${container}"
 
 # Unmount data image
 sudo umount "${build_dir}/data/"
+
+sudo sync
+e2fsck -f "${data_img}"
+resize2fs "${data_img}"
