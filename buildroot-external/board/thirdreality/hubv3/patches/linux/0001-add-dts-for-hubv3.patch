@@ -1,4 +1,4 @@
-From 9f71aed9f42e7d9c9be09eff3b212f5391f57cdb Mon Sep 17 00:00:00 2001
+From 172c35920e049203977f39118e08270345f938d2 Mon Sep 17 00:00:00 2001
 From: "tianwei.ge" <gtweiiiii@gmail.com>
 Date: Wed, 11 Dec 2024 11:20:02 +0800
 Subject: [PATCH] add dts for hubv3
@@ -24,7 +24,7 @@ index 8b6f57a94..9c8beec3e 100644
  dtb-$(CONFIG_ARCH_MESON) += meson-g12a-u200.dtb
 diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-thirdreality-hubv3.dts b/arch/arm64/boot/dts/amlogic/meson-axg-thirdreality-hubv3.dts
 new file mode 100644
-index 000000000..30d309c3b
+index 000000000..a4a81493c
 --- /dev/null
 +++ b/arch/arm64/boot/dts/amlogic/meson-axg-thirdreality-hubv3.dts
 @@ -0,0 +1,342 @@
@@ -47,7 +47,7 @@ index 000000000..30d309c3b
 +	aliases {
 +		serial0 = &uart_AO; /* Console */
 +		serial1 = &uart_A; /* Bluetooth */
-+		serial3 = &uart_AO_B /* Zigbee */
++		serial3 = &uart_AO_B; /* Zigbee */
 +	};
 +
 +	/* 1024MB RAM */
@@ -133,6 +133,39 @@ index 000000000..30d309c3b
 +		regulator-always-on;
 +	};
 +
++	wifi_pwm_conf: wifi_pwm_conf {
++		pwm_channel1_conf {
++			pwms = <&pwm_AO_cd 0 30541 0>;
++			duty-cycle = <15270>;
++			times = <10>;
++		};
++
++		pwm_channel2_conf {
++			pwms = <&pwm_AO_cd 2 30500 0>;
++			duty-cycle = <15250>;
++			times = <12>;
++		};
++	};
++
++	aml_bt: aml_bt {
++		status = "disabled";
++		compatible = "amlogic, aml-bt";
++
++		reset-gpios = <&gpio    GPIOX_21 GPIO_ACTIVE_HIGH>;
++		btwakeup-gpios = <&gpio GPIOZ_7 GPIO_ACTIVE_HIGH>;
++		hostwake-gpios = <&gpio GPIOZ_6 GPIO_ACTIVE_HIGH>;
++	};
++
++	aml_wifi: aml_wifi {
++		status = "disabled";
++		compatible = "amlogic, aml-wifi";
++		irq_trigger_type = "GPIO_IRQ_LOW";
++		pwm_config = <&wifi_pwm_conf>;
++
++		interrupt-gpios = <&gpio  GPIOX_6  GPIO_ACTIVE_HIGH>;
++		power_on-gpios = <&gpio   GPIOX_7  GPIO_ACTIVE_HIGH>;
++	};
++
 +	thermal-zones {
 +		cpu_thermal: cpu-thermal {
 +			polling-delay-passive = <250>;
@@ -207,24 +240,10 @@ index 000000000..30d309c3b
 +	pinctrl-names = "default";
 +};
 +
-+&pwm_AO_cd{
++&pwm_AO_cd {
 +	status = "okay";
 +	pinctrl-0 = <&pwm_ao_c_ao8_pins>;
 +	pinctrl-names = "default";
-+};
-+
-+wifi_pwm_conf: wifi_pwm_conf {
-+	pwm_channel1_conf {
-+		pwms = <&pwm_AO_cd 0 30541 0>;
-+		duty-cycle = <15270>;
-+		times = <10>;
-+	};
-+
-+	pwm_channel2_conf {
-+		pwms = <&pwm_AO_cd 2 30500 0>;
-+		duty-cycle = <15250>;
-+		times = <12>;
-+	};
 +};
 +
 +/* wifi module */
@@ -301,25 +320,6 @@ index 000000000..30d309c3b
 +	pinctrl-0 = <&uart_a_pins>, <&uart_a_cts_rts_pins>;
 +	pinctrl-names = "default";
 +	uart-has-rtscts;
-+};
-+
-+aml_bt: aml_bt {
-+	status = "disabled";
-+	compatible = "amlogic, aml-bt";
-+
-+	reset-gpios = <&gpio    GPIOX_21 GPIO_ACTIVE_HIGH>;
-+	btwakeup-gpios = <&gpio GPIOZ_7 GPIO_ACTIVE_HIGH>;
-+	hostwake-gpios = <&gpio GPIOZ_6 GPIO_ACTIVE_HIGH>;
-+};
-+
-+aml_wifi: aml_wifi {
-+	status = "disabled";
-+	compatible = "amlogic, aml-wifi";
-+	irq_trigger_type = "GPIO_IRQ_LOW";
-+	pwm_config = <&wifi_pwm_conf>;
-+
-+	interrupt-gpios = <&gpio  GPIOX_6  GPIO_ACTIVE_HIGH>;
-+	power_on-gpios = <&gpio   GPIOX_7  GPIO_ACTIVE_HIGH>;
 +};
 +
 +&usb {
