@@ -112,5 +112,11 @@
     "defconfig": "tinker",
     "architecture": "arm",
     "label": "board/tinker"
+  },
+  {
+    "id": "thirdreality-hubv3",
+    "defconfig": "thirdreality_hubv3",
+    "architecture": "aarch64",
+    "label": "board/thirdreality"
   }
 ]
