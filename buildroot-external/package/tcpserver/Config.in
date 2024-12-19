@@ -1,0 +1,4 @@
+config BR2_PACKAGE_TCPSERVER
+    bool "tcp server process tool"
+    help
+        tcp server process tool.

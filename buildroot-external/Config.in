@@ -19,3 +19,8 @@ source "$BR2_EXTERNAL_HASSOS_PATH/package/udisks2/Config.in"
 source "$BR2_EXTERNAL_HASSOS_PATH/package/xe-guest-utilities/Config.in"
 source "$BR2_EXTERNAL_HASSOS_PATH/package/amlogic-boot-fip-e/Config.in"
 source "$BR2_EXTERNAL_HASSOS_PATH/package/jethome-burn/Config.in"
+source "$BR2_EXTERNAL_HASSOS_PATH/package/chip-ota-provider-app/Config.in"
+#source "$BR2_EXTERNAL_HASSOS_PATH/package/hub_service/Config.in"
+source "$BR2_EXTERNAL_HASSOS_PATH/package/tcpserver/Config.in"
+source "$BR2_EXTERNAL_HASSOS_PATH/package/wifi-load/Config.in"
+

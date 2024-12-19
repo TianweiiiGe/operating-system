@@ -1,0 +1,4 @@
+config BR2_PACKAGE_WIFI_LOAD
+    bool "wifi load"
+    help
+        multi wifi load driver
