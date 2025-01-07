@@ -1,9 +1,6 @@
 #!/bin/sh
 set -e
 
-channel=$1
-
-# TODO 3R
 APPARMOR_URL="https://haversion.jethome.ru/apparmor.txt"
 
 # Make sure we can talk to the Docker daemon
@@ -25,11 +22,8 @@ done
 # Tag the Supervisor how the OS expects it to be tagged
 supervisor=$(docker images --filter "label=io.hass.type=supervisor" --quiet)
 arch=$(docker inspect --format '{{ index .Config.Labels "io.hass.arch" }}' "${supervisor}")
-# TODO 3R
 docker tag "${supervisor}" "ghcr.io/jethub-homeassistant/${arch}-hassio-supervisor:latest"
 
 # Setup AppArmor
 mkdir -p "/data/supervisor/apparmor"
 wget -O "/data/supervisor/apparmor/hassio-supervisor" "${APPARMOR_URL}"
-
-echo "{ \"channel\": \"${channel}\" }" > /data/supervisor/updater.json

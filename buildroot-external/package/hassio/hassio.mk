@@ -24,10 +24,6 @@ endef
 define HASSIO_BUILD_CMDS
 	$(Q)mkdir -p $(@D)/images
 	$(Q)mkdir -p $(HASSIO_DL_DIR)
-	$(foreach image,$(HASSIO_CONTAINER_IMAGES_ARCH),\
-		$(BR2_EXTERNAL_HASSOS_PATH)/package/hassio/fetch-container-image.sh \
-			$(BR2_PACKAGE_HASSIO_ARCH) $(BR2_PACKAGE_HASSIO_MACHINE) $(@D)/stable.json $(image) "$(HASSIO_DL_DIR)" "$(@D)/images"
-	)
 endef
 
 HASSIO_INSTALL_IMAGES = YES

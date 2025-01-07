@@ -15,7 +15,8 @@ hooks=install;
 
 [image.kernel]
 filename=kernel.img
-{{- if eq (env "BOOTLOADER") "tryboot" }}
+{{- $bootloader := (env "BOOTLOADER") }}
+{{- if or (eq $bootloader "grub") (eq $bootloader "tryboot") }}
 hooks=post-install;
 {{- end }}
 
