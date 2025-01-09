@@ -157,7 +157,7 @@ index 000000000..a4a81493c
 +	};
 +
 +	aml_wifi: aml_wifi {
-+		status = "disabled";
++		status = "okay";
 +		compatible = "amlogic, aml-wifi";
 +		irq_trigger_type = "GPIO_IRQ_LOW";
 +		pwm_config = <&wifi_pwm_conf>;

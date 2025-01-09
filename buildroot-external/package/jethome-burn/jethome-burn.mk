@@ -41,6 +41,11 @@ ifeq ($(call qstrip,$(BR2_PACKAGE_JETHOME_BURN_BOARD)),jethubj80)
     BR2_PACKAGE_JETHOME_BURN_DTS = "meson-gxl-s905w-jethome-jethub-j80.dts"
 endif
 
+ifeq ($(call qstrip,$(BR2_PACKAGE_JETHOME_BURN_BOARD)),thirdreality-hubv3)
+    BR2_PACKAGE_JETHOME_BURN_BOARD_DIR = hubv3
+    BR2_PACKAGE_JETHOME_BURN_DTS = "meson-axg-thirdreality-hubv3.dts"
+endif
+
 endif # qstrip BR2_PACKAGE_JETHOME_BURN_BOARD
 
 ifeq ($(call qstrip,$(BR2_PACKAGE_JETHOME_BURN_BOARD_DIR)),)
@@ -54,8 +59,18 @@ JETHOME_BURN_BINS +=  dtbtools/dtbTool tools/aml_image_v2_packer_new
 JETHOME_BURN_DATA += bins/$(BR2_PACKAGE_JETHOME_BURN_BOARD_DIR)/DDR.USB bins/$(BR2_PACKAGE_JETHOME_BURN_BOARD_DIR)/UBOOT.USB bins/$(BR2_PACKAGE_JETHOME_BURN_BOARD_DIR)/platform.conf
 
 define JETHOME_BURN_BUILD_CMDS
-    cd $(@D)/dtbtools ; make dtbTool
+    cd $(@D)/dtbtools ; make dtbTool ;
 endef
+
+ifeq ($(call qstrip,$(BR2_PACKAGE_JETHOME_BURN_BOARD)),thirdreality-hubv3)
+define JETHOME_BURN_EXTRA_CMDS
+    mkdir -p $(@D)/bins/hubv3 ;
+    cp -rf $(BR2_EXTERNAL_HASSOS_PATH)/package/jethome-burn/hubv3/* $(@D)/bins/hubv3/ ;
+endef
+    #cp -rf $(BR2_EXTERNAL_HASSOS_PATH)/package/jethome-burn/$(BR2_PACKAGE_JETHOME_BURN_DTS) $(@D)/dts/ ;
+endif
+
+JETHOME_BURN_BUILD_CMDS += $(JETHOME_BURN_EXTRA_CMDS)
 
 define JETHOME_BURN_INSTALL_IMAGES_CMDS
 	$(foreach f,$(JETHOME_BURN_BINS), \

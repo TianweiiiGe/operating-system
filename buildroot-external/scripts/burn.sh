@@ -4,6 +4,7 @@
 
 
 function _create_disk_burn() {
+    echo "HubV3: Create amlogic burn image by hassos-hook ..."
     local hdd_ext=${1:-img}
     local hdd_img="$(hassos_image_name "${hdd_ext}")"
     local hdd_img_burn="$(hassos_image_name_burn "${hdd_ext}")"
@@ -33,6 +34,8 @@ function _create_disk_burn() {
       echo 'file="'"${overlay_img##*/}"'"		main_type="PARTITION"		sub_type="overlay"'
       echo 'file="'"${data_img##*/}"'"		main_type="PARTITION"		sub_type="data"'
     } > "${BINARIES_DIR}/image.cfg"
+
+    echo "HubV3: ${BINARIES_DIR}/image.cfg created ..."
 
     _create_dtb_file
     aml_image_v2_packer_new -r "${BINARIES_DIR}/image.cfg" "${BINARIES_DIR}/" "$hdd_img_burn"
@@ -66,6 +69,7 @@ function size2number() {
 
 
 function _create_dtb_file () {
+    echo "HubV3: create_dtb_file ..."
     local boot_size=$(size2number "${BOOT_SIZE}")
     local kernel0_size=$(size2number "${KERNEL_SIZE}")
     local system0_size=$(size2number "$SYSTEM_SIZE")
