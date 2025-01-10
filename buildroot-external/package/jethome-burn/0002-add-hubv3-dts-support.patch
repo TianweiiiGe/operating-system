@@ -1,19 +1,19 @@
-From 8d3d0eb7627af2ae878d6b73b3287b827041a379 Mon Sep 17 00:00:00 2001
+From 10bf46f7fa0f583befae874811f020d9490e8d6c Mon Sep 17 00:00:00 2001
 From: "guoping.liu" <guoping.liu@3reality.com>
-Date: Thu, 9 Jan 2025 13:09:55 +0800
+Date: Thu, 9 Jan 2025 18:26:15 +0800
 Subject: [PATCH 2/2] add hubv3 dts support
 
 ---
- dts/meson-axg-thirdreality-hubv3.dts | 343 +++++++++++++++++++++++++++
- 1 file changed, 343 insertions(+)
+ dts/meson-axg-thirdreality-hubv3.dts | 344 +++++++++++++++++++++++++++
+ 1 file changed, 344 insertions(+)
  create mode 100644 dts/meson-axg-thirdreality-hubv3.dts
 
 diff --git a/dts/meson-axg-thirdreality-hubv3.dts b/dts/meson-axg-thirdreality-hubv3.dts
 new file mode 100644
-index 0000000..014483b
+index 0000000..7d239af
 --- /dev/null
 +++ b/dts/meson-axg-thirdreality-hubv3.dts
-@@ -0,0 +1,343 @@
+@@ -0,0 +1,344 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2024 ThirdReality, Inc.
@@ -25,11 +25,12 @@ index 0000000..014483b
 +#include "meson-axg.dtsi"
 +#include <dt-bindings/input/input.h>
 +#include <dt-bindings/thermal/thermal.h>
++#include "partition.dtsi"
 +
 +/ {
 +	compatible = "thirdreality,hubv3", "amlogic,a113d", "amlogic,meson-axg";
 +	model = "ThirdReality HUBV3";
-+    amlogic-dt-id = "axg_hubv3_v1";
++    amlogic-dt-id = "axg_jethubj100_v1";
 +
 +	aliases {
 +		serial0 = &uart_AO; /* Console */
